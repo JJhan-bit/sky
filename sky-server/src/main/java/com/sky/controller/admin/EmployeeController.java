@@ -104,4 +104,53 @@ public class EmployeeController {
 
         return Result.success(pageResult);
     }
+
+    /**
+     * 启用、禁用员工账号
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用、禁用员工账号")
+    public Result startOrStop(@PathVariable Integer status,Long id){
+
+        employeeService.startOrStop(status,id);
+
+
+        return Result.success();
+    }
+
+
+    /**
+     * 根据id查询员工
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据查询id查询单个员工")
+    public Result<Employee> getEmployee(@PathVariable Long id){
+        log.info("查询单个员工：{}",id);
+
+        Employee employee = employeeService.getEmployee(id);
+
+        return Result.success(employee);
+    }
+
+    /**
+     * 编辑员工信息
+     * @param employeeDTO
+     * @return
+     */
+    @PutMapping()
+    @ApiOperation("编辑员工信息")
+    public Result refreshEmployee(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编辑员工信息:{}",employeeDTO);
+
+        employeeService.refreshEmployee(employeeDTO);
+
+        return Result.success();
+    }
 }
+
+
